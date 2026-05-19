@@ -37,6 +37,7 @@
 {% endblock %}
 
 {% block scripts %}
+{{ super() }}
 <script>
     const historyStoreKey = "tcgScannerHistory";
     const historyTable = document.getElementById("history-table");

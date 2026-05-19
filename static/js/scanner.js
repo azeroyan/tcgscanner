@@ -45,6 +45,8 @@ async function loop() {
 }
 
 function addHistoryEntry(card, probability) {
+    // ignore placeholder or 'nothing' detections
+    if (!card || card.toLowerCase() === 'nothing') return;
     const now = new Date().toISOString();
     const history = JSON.parse(localStorage.getItem(historyStoreKey) || "[]");
 

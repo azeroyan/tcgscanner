@@ -27,4 +27,17 @@ window.addEventListener('DOMContentLoaded', () => {
     if (themeToggleButton) {
         themeToggleButton.addEventListener('click', toggleTheme);
     }
+    // Fallback: ensure navbar toggler works if Bootstrap's data-api isn't initializing
+    const toggler = document.querySelector('.navbar-toggler');
+    const collapseEl = document.getElementById('navbarNav');
+    if (toggler && collapseEl) {
+        console.log('Navbar toggler fallback attached');
+        toggler.addEventListener('click', (e) => {
+            console.log('Navbar toggler clicked (fallback)');
+            // toggle the Bootstrap collapse 'show' class as a fallback
+            collapseEl.classList.toggle('show');
+            const expanded = toggler.getAttribute('aria-expanded') === 'true';
+            toggler.setAttribute('aria-expanded', (!expanded).toString());
+        });
+    }
 });

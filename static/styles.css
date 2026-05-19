@@ -150,3 +150,17 @@ button,
 .dark-mode .table th {
     border-color: rgba(255,255,255,0.08);
 }
+
+/* Ensure text colors follow the active theme variables */
+body, h1, h2, h3, h4, h5, h6, p, a, .nav-link, .navbar-brand, .btn, .badge, .card, .table, .table td, .table th {
+    color: var(--text) !important;
+}
+
+/* Make bootstrap badges and primary outlines respect theme on dark */
+.badge, .btn-outline-primary {
+    color: var(--text) !important;
+}
+
+.dark-mode .badge, .dark-mode .btn-outline-primary {
+    color: var(--text) !important;
+}
