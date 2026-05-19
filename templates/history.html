@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="mb-2">Scan History</h1>
+        <p class="text-muted">Your latest scanned cards are stored locally in your browser.</p>
+    </div>
+
+    <div class="card p-4">
+        <div class="table-responsive">
+            <table class="table table-borderless align-middle text-center mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Card</th>
+                        <th scope="col">Confidence</th>
+                        <th scope="col">Scanned At</th>
+                    </tr>
+                </thead>
+                <tbody id="history-table">
+                    <tr>
+                        <td colspan="4" class="text-muted py-4">No history yet. Scan a card on the home page to populate this list.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <div class="text-muted">History is saved locally in the browser and stays between visits.</div>
+            <button id="clear-history" class="btn btn-outline-secondary btn-sm">Clear history</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const historyStoreKey = "tcgScannerHistory";
+    const historyTable = document.getElementById("history-table");
+
+    function formatTime(isoString) {
+        return new Date(isoString).toLocaleString([], { hour: 'numeric', minute: '2-digit', second: '2-digit', month: 'short', day: 'numeric' });
+    }
+
+    function renderHistory() {
+        const history = JSON.parse(localStorage.getItem(historyStoreKey) || "[]");
+        if (!history.length) {
+            historyTable.innerHTML = `
+                <tr>
+                    <td colspan="4" class="text-muted py-4">No history yet. Scan a card on the home page to populate this list.</td>
+                </tr>`;
+            return;
+        }
+
+        historyTable.innerHTML = history.map((item, index) => `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${item.card}</td>
+                <td>${(item.probability * 100).toFixed(0)}%</td>
+                <td>${formatTime(item.time)}</td>
+            </tr>
+        `).join('');
+    }
+
+    document.getElementById("clear-history").addEventListener("click", () => {
+        localStorage.removeItem(historyStoreKey);
+        renderHistory();
+    });
+
+    renderHistory();
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{
+    "Minccino": {
+        "name": "Minccino",
+        "mana_cost": "",
+        "cmc": 0,
+        "type_line": "Normal Pokémon",
+        "oracle_text": "A small, cheerful mouse Pokémon with soft fur and a friendly nature.",
+        "power": "",
+        "toughness": "",
+        "class_id": "Minccino"
+    },
+    "Pikachu": {
+        "name": "Pikachu",
+        "mana_cost": "",
+        "cmc": 0,
+        "type_line": "Electric Pokémon",
+        "oracle_text": "A quick, electric mouse Pokémon known for its lightning attacks.",
+        "power": "",
+        "toughness": "",
+        "class_id": "Pikachu"
+    },
+    "EnteiV": {
+        "name": "Entei V",
+        "mana_cost": "",
+        "cmc": 0,
+        "type_line": "Legendary Pokémon",
+        "oracle_text": "A powerful fire-type Pokémon that appears when volcanoes erupt.",
+        "power": "",
+        "toughness": "",
+        "class_id": "EnteiV"
+    },
+    "Chatot": {
+        "name": "Chatot",
+        "mana_cost": "",
+        "cmc": 0,
+        "type_line": "Flying Pokémon",
+        "oracle_text": "A bird Pokémon known for mimicking sounds and cheerful singing.",
+        "power": "",
+        "toughness": "",
+        "class_id": "Chatot"
+    },
+    "Greavard": {
+        "name": "Greavard",
+        "mana_cost": "",
+        "cmc": 0,
+        "type_line": "Ghost Pokémon",
+        "oracle_text": "A spooky dog Pokémon that can appear in graveyards and forests.",
+        "power": "",
+        "toughness": "",
+        "class_id": "Greavard"
+    },
+    "Nothing": {
+        "name": "Nothing",
+        "mana_cost": "",
+        "cmc": 0,
+        "type_line": "Unknown",
+        "oracle_text": "No card detected or unrecognized scan result.",
+        "power": "",
+        "toughness": "",
+        "class_id": "Nothing"
+    }
+}
