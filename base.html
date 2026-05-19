@@ -15,20 +15,16 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: var(--nav);" data-bs-theme="light" role="navigation">
+    <nav class="navbar navbar-light" style="background-color: var(--nav);" data-bs-theme="light" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('index') }}">TCG SCANNER</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+            <div class="d-flex align-items-center ms-auto">
+                <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+                    <li class="nav-item me-3">
                         <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item me-3">
                         <a class="nav-link" href="{{ url_for('history') }}">History</a>
                     </li>
                 </ul>
