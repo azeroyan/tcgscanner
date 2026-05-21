@@ -4,6 +4,19 @@ const historyStoreKey = "tcgScannerHistory";
 let model, webcam, labelContainer, maxPredictions, className;
 let lastStoredClass = null;
 let lastStoredTime = 0;
+let saveTarget = 'local';
+
+async function loadSaveTarget() {
+    try {
+        const response = await fetch('/api/save-target');
+        if (response.ok) {
+            const data = await response.json();
+            saveTarget = data.save_target || 'local';
+        }
+    } catch (error) {
+        saveTarget = 'local';
+    }
+}
 
 // Load the image model and setup the webcam
 async function init() {
@@ -26,6 +39,7 @@ async function init() {
     webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
     await webcam.setup(constraints); // request access to the webcam
     await webcam.play();
+    await loadSaveTarget();
     window.requestAnimationFrame(loop);
 
     // append elements to the DOM
@@ -44,25 +58,40 @@ async function loop() {
     window.requestAnimationFrame(loop);
 }
 
-function addHistoryEntry(card, probability) {
+async function addHistoryEntry(card, probability) {
     // ignore placeholder or 'nothing' detections
     if (!card || card.toLowerCase() === 'nothing') return;
     const now = new Date().toISOString();
-    const history = JSON.parse(localStorage.getItem(historyStoreKey) || "[]");
 
     if (card === lastStoredClass && Date.now() - lastStoredTime < 5000) {
         return;
     }
 
-    history.unshift({
-        card,
-        probability,
-        time: now
-    });
-
-    localStorage.setItem(historyStoreKey, JSON.stringify(history.slice(0, 50)));
     lastStoredClass = card;
     lastStoredTime = Date.now();
+
+    if (saveTarget === 'database') {
+        try {
+            const response = await fetch('/api/save-scan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ card, probability, time: now })
+            });
+            if (!response.ok) {
+                throw new Error('Database save failed');
+            }
+            return;
+        } catch (error) {
+            console.warn('Unable to save scan to database, falling back to local storage.', error);
+            saveTarget = 'local';
+        }
+    }
+
+    const history = JSON.parse(localStorage.getItem(historyStoreKey) || "[]");
+    history.unshift({ card, probability, time: now });
+    localStorage.setItem(historyStoreKey, JSON.stringify(history.slice(0, 100)));
 }
 
 // run the webcam image through the image model
@@ -75,7 +104,7 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
         if (prediction[i].probability.toFixed(2) > 0.95) {
             className.innerHTML = prediction[i].className;
-            addHistoryEntry(prediction[i].className, parseFloat(prediction[i].probability.toFixed(2)));
+            await addHistoryEntry(prediction[i].className, parseFloat(prediction[i].probability.toFixed(2)));
         }
     }
 }

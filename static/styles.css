@@ -63,15 +63,39 @@ button,
     color: var(--text) !important;
 }
 
-.nav-link.active,
-.nav-link:hover,
+.navbar-nav .nav-link {
+    border-radius: 1rem;
+    padding: 0.35rem 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.theme-toggle-btn {
+    border-radius: 1rem;
+    padding: 0.35rem 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle-btn:hover,
+.theme-toggle-btn:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active,
 .btn-primary,
 .btn-outline-primary:hover,
-.btn-outline-primary:focus,
-.btn-outline-primary.active {
+.btn-outline-primary.active,
+.btn-outline-secondary:hover {
     color: #fff !important;
     background-color: var(--primary) !important;
     border-color: var(--primary) !important;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: var(--primary);
+    border-color: var(--primary);
 }
 
 .btn-outline-primary {
@@ -84,6 +108,30 @@ button,
     color: var(--text);
     border-color: var(--border);
     background: transparent;
+}
+
+.btn,
+button {
+    border-radius: 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.theme-toggle-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.btn:focus-visible,
+.theme-toggle-btn:focus-visible {
+    box-shadow: none !important;
+    outline: 2px solid var(--primary-soft);
+    outline-offset: 2px;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-primary:hover {
+    border-radius: 1rem;
 }
 
 .text-muted {
@@ -141,9 +189,40 @@ button,
     border-color: var(--border);
 }
 
-.dark-mode .table-light {
-    color: var(--text);
+.history-table {
+    background-color: var(--surface) !important;
+}
+
+.history-table thead {
     background-color: var(--surface-alt) !important;
+}
+
+.history-table th,
+.history-table td {
+    color: var(--text) !important;
+    background-color: transparent !important;
+}
+
+.history-table tbody tr {
+    background-color: transparent !important;
+}
+
+.dark-mode .history-table {
+    background-color: var(--surface) !important;
+}
+
+.dark-mode .history-table thead {
+    background-color: var(--surface-alt) !important;
+}
+
+.dark-mode .history-table th,
+.dark-mode .history-table td {
+    color: var(--text) !important;
+    background-color: transparent !important;
+}
+
+.dark-mode .history-table tbody tr {
+    background-color: transparent !important;
 }
 
 .dark-mode .table td,
@@ -151,12 +230,10 @@ button,
     border-color: rgba(255,255,255,0.08);
 }
 
-/* Ensure text colors follow the active theme variables */
 body, h1, h2, h3, h4, h5, h6, p, a, .nav-link, .navbar-brand, .btn, .badge, .card, .table, .table td, .table th {
     color: var(--text) !important;
 }
 
-/* Make bootstrap badges and primary outlines respect theme on dark */
 .badge, .btn-outline-primary {
     color: var(--text) !important;
 }
